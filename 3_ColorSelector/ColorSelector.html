@@ -18,30 +18,44 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      background: rgb(68, 68, 68);
+      background-image: linear-gradient(to left bottom, #ffbee3, #f2baea, #e2b7f1, #ceb5f7, #b5b4fc, #9cbcff, #81c4ff, #69caff, #5bd9ff, #57e6ff, #61f3fd, #76fff5);
     }
 
     div#zone {
-      width: 1024px;
-      height:600px;
+      width: 700px;
+      height: 700px;
       position: absolute;
       border: pink 1px solid;
       text-align: center;
       font-size: 40px;
-      line-height: 300px;
+      line-height: 1100px;
       text-transform: uppercase;
       color: white;
-      border: 8px solid black;
       margin: 10px;
     }
-    .a{
+
+    .a {
       flex-direction: column;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .m-2{
+
+    .m-2 {
       z-index: 9;
+    }
+
+    .square {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .triangle {
+      clip-path: polygon(50% 0, 50% 0, 100% 100%, 0% 100%);
+    }
+
+    .circle {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      border-radius: 50%;
     }
   </style>
 </head>
@@ -50,17 +64,17 @@
   <div id="zone" style="background-color: rgb(204, 246, 196); color: rgb(51, 9, 59);">#ffffff</div>
   <div class="a">
     <div class="m-2">
-    <input class="btn btn-primary" type="button" value="R" onclick="ask('r')">
-    <input type="range" min="0" max="255" id="rr" oninput="sbar('r',this)">
-  </div>
-  <div class="m-2">
-    <input class="btn btn-primary" type="button" value="G" onclick="ask('g')">
-    <input type="range" min="0" max="255" id="gg" oninput="sbar('g',this)">
-  </div>
-  <div class="m-2">
-    <input class="btn btn-primary" type="button" value="B" onclick="ask('b')">
-    <input type="range" min="0" max="255" id="bb" oninput="sbar('b',this)">
-  </div>
+      <input class="btn btn-primary" type="button" value="R" onclick="ask('r')">
+      <input type="range" min="0" max="255" id="rr" oninput="sbar('r',this)">
+    </div>
+    <div class="m-2">
+      <input class="btn btn-primary" type="button" value="G" onclick="ask('g')">
+      <input type="range" min="0" max="255" id="gg" oninput="sbar('g',this)">
+    </div>
+    <div class="m-2">
+      <input class="btn btn-primary" type="button" value="B" onclick="ask('b')">
+      <input type="range" min="0" max="255" id="bb" oninput="sbar('b',this)">
+    </div>
     <div class="btn-group" role="group" aria-label="Basic example">
       <input class="btn btn-primary" type="button" value="+" onmousedown="cont('add')" onmouseup="clearInterval(run)"
         onmouseout="clearInterval(run)">
@@ -68,6 +82,11 @@
         onmouseout="clearInterval(run)">
       <input class="btn btn-primary" type="button" value="?" onmousedown="cont('rand')" onmouseup="clearInterval(run)"
         onmouseout="clearInterval(run)">
+    </div>
+    <div class="btn-group mt-2">
+      <input class="btn btn-primary" type="button" title="square" value="正方形" />
+      <input class="btn btn-primary" type="button" title="circle" value="圓形" />
+      <input class="btn btn-primary" type="button" title="triangle" value="三角形" />
     </div>
   </div>
 
@@ -127,6 +146,8 @@
       rgb[clr] = Number(obj.value);
       print_rgb();
     }
+    const zone = document.querySelector("#zone");
+    document.querySelectorAll("input[type=button]").forEach(item => item.onclick = () => zone.className = item.title)
   </script>
 </body>
 
