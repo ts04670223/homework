@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)https://page007.lokiui.com/ -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: rgb(68, 68, 68);
+    }
+
+    div#zone {
+      width: 1024px;
+      height:600px;
+      position: absolute;
+      border: pink 1px solid;
+      text-align: center;
+      font-size: 40px;
+      line-height: 300px;
+      text-transform: uppercase;
+      color: white;
+      border: 8px solid black;
+      margin: 10px;
+    }
+    .a{
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .m-2{
+      z-index: 9;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="zone" style="background-color: rgb(204, 246, 196); color: rgb(51, 9, 59);">#ffffff</div>
+  <div class="a">
+    <div class="m-2">
+    <input class="btn btn-primary" type="button" value="R" onclick="ask('r')">
+    <input type="range" min="0" max="255" id="rr" oninput="sbar('r',this)">
+  </div>
+  <div class="m-2">
+    <input class="btn btn-primary" type="button" value="G" onclick="ask('g')">
+    <input type="range" min="0" max="255" id="gg" oninput="sbar('g',this)">
+  </div>
+  <div class="m-2">
+    <input class="btn btn-primary" type="button" value="B" onclick="ask('b')">
+    <input type="range" min="0" max="255" id="bb" oninput="sbar('b',this)">
+  </div>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <input class="btn btn-primary" type="button" value="+" onmousedown="cont('add')" onmouseup="clearInterval(run)"
+        onmouseout="clearInterval(run)">
+      <input class="btn btn-primary" type="button" value="-" onmousedown="cont('sub')" onmouseup="clearInterval(run)"
+        onmouseout="clearInterval(run)">
+      <input class="btn btn-primary" type="button" value="?" onmousedown="cont('rand')" onmouseup="clearInterval(run)"
+        onmouseout="clearInterval(run)">
+    </div>
+  </div>
+
+
+
+  <script>
+    function padLeft(str) { //補位數
+      str = str.toString(16);
+      return str.length >= 2 ? str : '0' + str;
+    }
+    function print_rgb() { //print color
+      document.getElementById("zone").style.backgroundColor = "rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ")";
+      document.getElementById("zone").style.color = "rgb(" + (255 - rgb.r) + "," + (255 - rgb.g) + "," + (255 - rgb.b) + ")";
+      document.getElementById("rr").value = rgb.r;
+      document.getElementById("gg").value = rgb.g;
+      document.getElementById("bb").value = rgb.b;
+      document.getElementById("zone").innerHTML = "#" + padLeft(rgb.r) + padLeft(rgb.g) + padLeft(rgb.b);
+    }
+    function ask(clr) {    //詢問單色並替換
+      do {
+        newclr = prompt('輸入0~255', rgb[clr]);
+      } while (!(0 <= newclr && newclr <= 255));
+      rgb[clr] = (newclr == null) ? rgb[clr] : Number(newclr);
+      print_rgb();
+    }
+
+    var rgb = { r: 0, g: 0, b: 0 }, run; //初始化
+    rgb.r = Math.floor((Math.random() * 256));
+    rgb.g = Math.floor((Math.random() * 256));
+    rgb.b = Math.floor((Math.random() * 256));
+    print_rgb();
+
+
+    function cont(select) {   //連續作業
+      run = setInterval(function () {
+        switch (select) {
+          case 'add':
+            if (rgb.r < 255) rgb.r++;
+            if (rgb.g < 255) rgb.g++;
+            if (rgb.b < 255) rgb.b++;
+            break;
+          case 'sub':
+            if (rgb.r > 0) rgb.r--;
+            if (rgb.g > 0) rgb.g--;
+            if (rgb.b > 0) rgb.b--;
+            break;
+          case 'rand':
+            rgb.r = Math.floor((Math.random() * 256));
+            rgb.g = Math.floor((Math.random() * 256));
+            rgb.b = Math.floor((Math.random() * 256));
+            break;
+        }
+        print_rgb();
+      }, 30);
+    }
+    function sbar(clr, obj) {
+      rgb[clr] = Number(obj.value);
+      print_rgb();
+    }
+  </script>
+</body>
+
+</html>
