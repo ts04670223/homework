@@ -17,28 +17,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      background-image: linear-gradient(to left bottom, #ffbee3, #f2baea, #e2b7f1, #ceb5f7, #b5b4fc, #9cbcff, #81c4ff, #69caff, #5bd9ff, #57e6ff, #61f3fd, #76fff5);
+      background: rgb(63, 63, 63);
     }
 
     div#zone {
-      width: 700px;
-      height: 700px;
-      position: absolute;
-      border: pink 1px solid;
+      width: 500px;
+      height: 300px;
       text-align: center;
       font-size: 40px;
-      line-height: 1100px;
+      line-height: 100px;
       text-transform: uppercase;
       color: white;
       margin: 10px;
     }
 
-    .a {
-      flex-direction: column;
+    .aaa {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
+      background: floralwhite;
     }
 
     .m-2 {
@@ -62,7 +60,7 @@
 
 <body>
   <div id="zone" style="background-color: rgb(204, 246, 196); color: rgb(51, 9, 59);">#ffffff</div>
-  <div class="a">
+  <div class="aaa p-2">
     <div class="m-2">
       <input class="btn btn-primary" type="button" value="R" onclick="ask('r')">
       <input type="range" min="0" max="255" id="rr" oninput="sbar('r',this)">
@@ -82,11 +80,6 @@
         onmouseout="clearInterval(run)">
       <input class="btn btn-primary" type="button" value="?" onmousedown="cont('rand')" onmouseup="clearInterval(run)"
         onmouseout="clearInterval(run)">
-    </div>
-    <div class="btn-group mt-2">
-      <input class="btn btn-primary" type="button" title="square" value="正方形" />
-      <input class="btn btn-primary" type="button" title="circle" value="圓形" />
-      <input class="btn btn-primary" type="button" title="triangle" value="三角形" />
     </div>
   </div>
 
@@ -146,8 +139,6 @@
       rgb[clr] = Number(obj.value);
       print_rgb();
     }
-    const zone = document.querySelector("#zone");
-    document.querySelectorAll("input[type=button]").forEach(item => item.onclick = () => zone.className = item.title)
   </script>
 </body>
 
